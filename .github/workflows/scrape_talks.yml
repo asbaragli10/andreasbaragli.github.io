@@ -59,4 +59,13 @@ jobs:
           gem install bundler
           bundle install
 
-      #
+      # 8. Build the Jekyll site
+      - name: Build Jekyll site
+        run: bundle exec jekyll build
+
+      # 9. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
