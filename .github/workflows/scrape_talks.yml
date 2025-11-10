@@ -1,13 +1,10 @@
-name: Update site and talks
+name: Build and Deploy Jekyll Site
 
 on:
   push:
     branches:
       - master
     paths:
-      - "talks/**"
-      - "_talks/**"
-      - "talkmap.ipynb"
       - "**.md"
       - "_config.yml"
       - "_layouts/**"
@@ -22,48 +19,23 @@ jobs:
       # 1. Checkout the repository
       - uses: actions/checkout@v3
 
-      # 2. Set up Python for the notebook
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
-
-      # 3. Install Python dependencies
-      - name: Install Python dependencies
-        run: |
-          pip install jupyter pandas requests beautifulsoup4 geopy getorg --upgrade
-
-      # 4. Run the Jupyter notebook
-      - name: Execute notebook
-        run: |
-          jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
-
-      # 5. Commit notebook changes if any
-      - name: Commit notebook updates
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add talkmap_out.ipynb
-          git commit -m "Automated update of talkmap" || echo "No changes to commit"
-          git push
-
-      # 6. Set up Ruby for Jekyll
+      # 2. Set up Ruby
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2
 
-      # 7. Install Jekyll dependencies
+      # 3. Install Jekyll dependencies
       - name: Install Jekyll dependencies
         run: |
           gem install bundler
           bundle install
 
-      # 8. Build the Jekyll site
+      # 4. Build the Jekyll site
       - name: Build Jekyll site
         run: bundle exec jekyll build
 
-      # 9. Deploy to GitHub Pages
+      # 5. Deploy the site to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v6
         with:
