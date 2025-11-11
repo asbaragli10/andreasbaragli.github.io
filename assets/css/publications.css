@@ -1,4 +1,6 @@
-/* Existing pub-links styling */
+/* =========================
+   Existing pub-links styling
+   ========================= */
 .pub-links .pub-link {
   display: inline-block;
   vertical-align: middle;
@@ -23,7 +25,9 @@
   transition: transform 0.2s ease;
 }
 
-/* Abstract / BibTeX sections with slide animation */
+/* =========================
+   Abstract / BibTeX sections with slide animation
+   ========================= */
 .pub-extra {
   margin-top: 0.5em;
   margin-left: 1.5em;
@@ -31,10 +35,11 @@
   padding-left: 1em;
   font-size: 0.95em;
   background: #f9f9f9;
+  color: #111;
   border-radius: 5px;
   overflow: hidden;
   max-height: 0;
-  transition: max-height 0.4s ease;
+  transition: max-height 0.4s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .pub-extra p,
@@ -45,22 +50,23 @@
 .pub-extra pre {
   white-space: pre-wrap;
   background: #f0f0f0;
+  color: #111;
   padding: 0.5em;
   border-radius: 4px;
   overflow-x: auto;
 }
 
-/* ------------------------ */
-/* NEW STYLING FOR YOUR REQUEST */
-/* ------------------------ */
-
-/* Justify text for all publication entries */
+/* =========================
+   Text justification for publication entries
+   ========================= */
 .pub-entry {
   text-align: justify;
   margin-bottom: 1em;
 }
 
-/* Section headers styling */
+/* =========================
+   Section headers styling
+   ========================= */
 .publications-list + h2,
 h2 {
   position: relative;
@@ -85,4 +91,18 @@ h2::after {
 /* Optional: spacing similar to your interests-section */
 .pub-section {
   margin-top: 3em;
+}
+
+/* =========================
+   Dark / Nocturnal theme
+   ========================= */
+html[data-theme="dark"] .pub-extra {
+  background: var(--global-bg-color);       /* dark background from theme */
+  color: var(--global-text-color);          /* light text from theme */
+  border-left-color: var(--global-link-color); /* accent line */
+}
+
+html[data-theme="dark"] .pub-extra pre {
+  background: #1b2a44;                       /* slightly darker than page background */
+  color: var(--global-text-color);           /* light text */
 }
