@@ -1,0 +1,50 @@
+.pub-links .pub-link {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #007acc;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pub-link:hover {
+  text-decoration: underline;
+}
+
+.toggle-link {
+  display: inline-block;
+}
+
+.toggle-icon {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+/* Abstract / BibTeX sections with slide animation */
+.pub-extra {
+  margin-top: 0.5em;
+  margin-left: 1.5em;
+  border-left: 3px solid #ccc;
+  padding-left: 1em;
+  font-size: 0.95em;
+  background: #f9f9f9;
+  border-radius: 5px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+
+.pub-extra p,
+.pub-extra pre {
+  margin: 0.5em 0;
+}
+
+.pub-extra pre {
+  white-space: pre-wrap;
+  background: #f0f0f0;
+  padding: 0.5em;
+  border-radius: 4px;
+  overflow-x: auto;
+}
