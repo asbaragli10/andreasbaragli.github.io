@@ -41,3 +41,15 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+
+
+
+/* Custom styles for bio text */
+.page__content {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.page__content p {
+    margin-bottom: 1.5em;
+}
