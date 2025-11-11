@@ -1,3 +1,4 @@
+/* Existing pub-links styling */
 .pub-links .pub-link {
   display: inline-block;
   vertical-align: middle;
@@ -47,4 +48,41 @@
   padding: 0.5em;
   border-radius: 4px;
   overflow-x: auto;
+}
+
+/* ------------------------ */
+/* NEW STYLING FOR YOUR REQUEST */
+/* ------------------------ */
+
+/* Justify text for all publication entries */
+.pub-entry {
+  text-align: justify;
+  margin-bottom: 1em;
+}
+
+/* Section headers styling */
+.publications-list + h2,
+h2 {
+  position: relative;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  padding-bottom: 0.3em;
+  font-size: 1.8em;
+  font-weight: 600;
+}
+
+/* Line under headers */
+h2::after {
+  content: "";
+  display: block;
+  width: 60px; /* Length of the line */
+  height: 3px;  /* Thickness */
+  background-color: #52adc8; /* or your theme color */
+  margin-top: 4px;
+  border-radius: 2px;
+}
+
+/* Optional: spacing similar to your interests-section */
+.pub-section {
+  margin-top: 3em;
 }

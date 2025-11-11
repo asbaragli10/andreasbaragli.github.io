@@ -8,9 +8,5 @@ author_profile: true
 <link rel="stylesheet" href="{{ '/assets/css/publications.css' | relative_url }}">
 <script src="{{ '/assets/js/publications.js' | relative_url }}"></script>
 
-<ol class="pub-list" reversed>
-  {% assign pubs = site.publications | sort: 'date' | reverse %}
-  {% for post in pubs %}
-    {% include custom_pub_entry.html %}
-  {% endfor %}
-</ol>
+<!-- Include the custom publications list once -->
+{% include custom_pub_entry.html %}

@@ -1,42 +1,148 @@
-<li class="pub-entry">
-  {% if post.authors %}
-    {% for author in post.authors %}
-      {{ author }}{% if forloop.last == false %}, {% endif %}
-    {% endfor %}
-  {% endif %}
-  ‘<strong>{{ post.title }}</strong>’,
-  {% if post.venue %}<em>{{ post.venue }}</em>,{% endif %}
-  {% if post.volume %} vol. {{ post.volume }},{% endif %}
-  {% if post.pages %} pp. {{ post.pages }},{% endif %}
-  {{ post.date | date: "%Y" }}.
-  {% if post.doi %} doi: {{ post.doi }}.{% endif %}
-
-  <div class="pub-links">
-    {% for link in post.links %}
-      {% assign lname = link.name | downcase %}
-      {% if lname == "html" %}
-        <a href="{{ link.url }}" target="_blank" class="pub-link html-link">
-          <img alt="HTML" src="https://img.shields.io/badge/HTML-red?logo=html5&color=555555" style="height:22px; vertical-align:middle">
-        </a><span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'abstract', this)">
-          Abstract <span class="toggle-icon">▼</span>
-        </span><span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'bibtex', this)">
-          BibTeX <span class="toggle-icon">▼</span>
-        </span>
+<h2>Journals</h2>
+<ul class="publications-list">
+  {% assign journal_pubs = site.publications | where:"category","journal" | sort: "date" | reverse %}
+  {% for post in journal_pubs %}
+    <li class="pub-entry">
+      {% if post.authors %}
+        {% for author in post.authors %}
+          {{ author }}{% if forloop.last == false %}, {% endif %}
+        {% endfor %}
       {% endif %}
-    {% endfor %}
-  </div>
+      ‘<strong>{{ post.title }}</strong>’,
+      {% if post.venue %}{{ post.venue }}{% endif %}{% if post.volume %}, vol. {{ post.volume }}{% endif %}{% if post.number %}, no. {{ post.number }}{% endif %}{% if post.pages %}, pp. {{ post.pages }}{% endif %}, {{ post.date | date: "%Y" }}.
+      {% if post.doi %} doi: {{ post.doi }}.{% endif %}
 
-  {% if post.abstract %}
-    <div id="abstract-{{ post.title | slugify }}" class="pub-extra hidden">
-      <h4>Abstract</h4>
-      <p>{{ post.abstract }}</p>
-    </div>
-  {% endif %}
+      <div class="pub-links">
+        {% for link in post.links %}
+          {% assign lname = link.name | downcase %}
+          {% if lname == "html" %}
+            <a href="{{ link.url }}" target="_blank" class="pub-link html-link">
+              <img alt="HTML" src="https://img.shields.io/badge/HTML-red?logo=html5&color=555555" style="height:22px; vertical-align:middle">
+            </a>
+          {% elsif lname == "abstract" %}
+            <span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'abstract', this)">
+              Abstract <span class="toggle-icon">▼</span>
+            </span>
+          {% elsif lname == "bibtex" %}
+            <span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'bibtex', this)">
+              BibTeX <span class="toggle-icon">▼</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
 
-  {% if post.bibtex %}
-    <div id="bibtex-{{ post.title | slugify }}" class="pub-extra hidden">
-      <h4>BibTeX</h4>
-      <pre>{{ post.bibtex }}</pre>
-    </div>
-  {% endif %}
-</li>
+      {% if post.abstract %}
+        <div id="abstract-{{ post.title | slugify }}" class="pub-extra hidden">
+          <h4>Abstract</h4>
+          <p>{{ post.abstract }}</p>
+        </div>
+      {% endif %}
+
+      {% if post.bibtex %}
+        <div id="bibtex-{{ post.title | slugify }}" class="pub-extra hidden">
+          <h4>BibTeX</h4>
+          <pre>{{ post.bibtex }}</pre>
+        </div>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>Conferences</h2>
+<ul class="publications-list">
+  {% assign conf_pubs = site.publications | where:"category","conference" | sort: "date" | reverse %}
+  {% for post in conf_pubs %}
+    <li class="pub-entry">
+      {% if post.authors %}
+        {% for author in post.authors %}
+          {{ author }}{% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+      {% endif %}
+      ‘<strong>{{ post.title }}</strong>’,
+      {% if post.venue %}{{ post.venue }}{% endif %}{% if post.volume %}, vol. {{ post.volume }}{% endif %}{% if post.number %}, no. {{ post.number }}{% endif %}{% if post.pages %}, pp. {{ post.pages }}{% endif %}, {{ post.date | date: "%Y" }}.
+      {% if post.doi %} doi: {{ post.doi }}.{% endif %}
+
+      <div class="pub-links">
+        {% for link in post.links %}
+          {% assign lname = link.name | downcase %}
+          {% if lname == "html" %}
+            <a href="{{ link.url }}" target="_blank" class="pub-link html-link">
+              <img alt="HTML" src="https://img.shields.io/badge/HTML-red?logo=html5&color=555555" style="height:22px; vertical-align:middle">
+            </a>
+          {% elsif lname == "abstract" %}
+            <span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'abstract', this)">
+              Abstract <span class="toggle-icon">▼</span>
+            </span>
+          {% elsif lname == "bibtex" %}
+            <span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'bibtex', this)">
+              BibTeX <span class="toggle-icon">▼</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if post.abstract %}
+        <div id="abstract-{{ post.title | slugify }}" class="pub-extra hidden">
+          <h4>Abstract</h4>
+          <p>{{ post.abstract }}</p>
+        </div>
+      {% endif %}
+
+      {% if post.bibtex %}
+        <div id="bibtex-{{ post.title | slugify }}" class="pub-extra hidden">
+          <h4>BibTeX</h4>
+          <pre>{{ post.bibtex }}</pre>
+        </div>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>PhD Thesis</h2>
+<ul class="publications-list">
+  {% assign phd_pubs = site.publications | where:"category","phd" | sort: "date" | reverse %}
+  {% for post in phd_pubs %}
+    <li class="pub-entry">
+      {% if post.authors %}
+        {% for author in post.authors %}
+          {{ author }}{% if forloop.last == false %}, {% endif %}
+        {% endfor %}
+      {% endif %}
+      ‘<strong>{{ post.title }}</strong>’,
+      {{ post.publisher }}, {{ post.date | date: "%Y" }}.
+
+      <div class="pub-links">
+        {% for link in post.links %}
+          {% assign lname = link.name | downcase %}
+          {% if lname == "html" %}
+            <a href="{{ link.url }}" target="_blank" class="pub-link html-link">
+              <img alt="HTML" src="https://img.shields.io/badge/HTML-red?logo=html5&color=555555" style="height:22px; vertical-align:middle">
+            </a>
+          {% elsif lname == "abstract" %}
+            <span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'abstract', this)">
+              Abstract <span class="toggle-icon">▼</span>
+            </span>
+          {% elsif lname == "bibtex" %}
+            <span class="pub-link toggle-link" onclick="toggleSection('{{ post.title | slugify }}', 'bibtex', this)">
+              BibTeX <span class="toggle-icon">▼</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% if post.abstract %}
+        <div id="abstract-{{ post.title | slugify }}" class="pub-extra hidden">
+          <h4>Abstract</h4>
+          <p>{{ post.abstract }}</p>
+        </div>
+      {% endif %}
+
+      {% if post.bibtex %}
+        <div id="bibtex-{{ post.title | slugify }}" class="pub-extra hidden">
+          <h4>BibTeX</h4>
+          <pre>{{ post.bibtex }}</pre>
+        </div>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
