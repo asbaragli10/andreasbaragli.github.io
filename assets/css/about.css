@@ -1,19 +1,21 @@
-.interests-section {
-    margin-top: 3em;
-}
-
 .interests-section h2 {
     margin-bottom: 1em;
+    border: none; /* remove any default borders */
+    position: relative; /* ensure pseudo-element positioning */
 }
 
-.interest-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.8em;
+/* Hide any hr inside the section (if present) */
+.interests-section hr {
+    display: none;
 }
 
-.interest-item i {
-    margin-right: 0.8em;
-    color: #52adc8; /* or your theme color */
-    font-size: 1.2em;
+/* Your short blue line under the header */
+.interests-section h2::after {
+    content: "";
+    display: block;
+    width: 60px; /* Length of the line */
+    height: 3px;  /* Thickness */
+    background-color: #52adc8; /* your theme color */
+    margin-top: 4px;
+    border-radius: 2px;
 }
