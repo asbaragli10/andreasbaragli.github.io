@@ -1,0 +1,69 @@
+.archive h2 {
+  position: relative;      /* required for ::after to render */
+  display: block;
+  margin-bottom: 1rem;     /* spacing between line and next content */
+}
+
+.archive h2::after {
+  content: "";
+  display: block;          /* ensures pseudo-element is visible */
+  width: 60px;
+  height: 3px;
+  background-color: #52adc8;
+  margin-top: 0.3em;
+  border-radius: 2px;
+}
+
+/* ---------------------- */
+/* Download section       */
+/* ---------------------- */
+.cv-download-section {
+  background: transparent;   /* remove background */
+  border: none;              /* remove border */
+  box-shadow: none;          /* remove shadow */
+  padding: 0;                /* remove extra spacing */
+  margin-bottom: 2rem;       /* spacing below */
+  text-align: center;
+}
+
+.cv-download-section p {
+  font-size: 1rem;
+  color: var(--global-text-color);
+  margin-bottom: 1rem;
+}
+
+/* Button styling */
+.cv-download-section .btn {
+  display: inline-block;
+  background-color: #52adc8;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.cv-download-section .btn:hover {
+  background-color: #3e8fa7;
+  transform: translateY(-2px);
+}
+
+/* ---------------------- */
+/* CV content justification */
+/* ---------------------- */
+.archive {
+  text-align: justify;
+  text-justify: inter-word; /* better word spacing */
+}
+
+/* Optional: add spacing between lists and paragraphs */
+.archive p, 
+.archive ul, 
+.archive ol {
+  margin-bottom: 1rem;
+}
+
+.archive li {
+  margin-bottom: 0.5rem;
+}

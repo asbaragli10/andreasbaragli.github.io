@@ -1,15 +1,4 @@
----
-layout: archive
-title: "CV"
-permalink: /cv/
-author_profile: true
-redirect_from:
-  - /resume
----
-
-{% include base_path %}
-
-# Skills
+## Skills
 
 - **Pipelines**
   - API: Websockets and Rest
@@ -20,6 +9,7 @@ redirect_from:
   - Libraries: Pytorch, TensorFlow and Scikit-learn
   - Dashboard: Dash, Streamlit, Django, React and Grafana
   - Containers: Docker
+  - Versioning: GitHub
 - **Cloud Environments**
   - Azure: Databricks and Data Factory
   - Amazon: Routing services
@@ -29,7 +19,7 @@ redirect_from:
   - Ubuntu
   - Windows
 
-# Work experience
+## Work experience
 
 - **2025–present: Digital Transformation Lead, Merit, Newcastle Upon Tyne**  
   Position funded by Innovate UK as a Knowledge Transfer Partnership associate with Newcastle University and Merit.
@@ -65,8 +55,14 @@ redirect_from:
   - **Laboratory**: Delivered 8 hours of lectures utilizing simulation tools to address real-world case applications
   - **Research Project**: Literature review on the usage of indoor positioning systems in manufacturing and logistics environments
 
-# Education
+## Education
 
 - MBA in Business Administration, London School of Economics, 2025
 - M.Sc. in Management Engineering, University of Bologna, 2018-2021
 - B.S. in Management Engineering, University of Bologna, 2015-2018
+
+## Certifications
+
+- CMI Level 5 in Management and Leadership, Ashorne Hill, 2025
+- Computer Vision Fundamentals with Google Cloud, Google Cloud Skills Boost, 2024
+- Machine Learning, Stanford University, 2020

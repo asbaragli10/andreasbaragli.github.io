@@ -1,0 +1,22 @@
+---
+layout: archive
+title: "CV"
+permalink: /cv/
+author_profile: true
+---
+
+<!-- ✅ Load custom styling and JS -->
+<link rel="stylesheet" href="{{ '/assets/css/cv.css' | relative_url }}">
+<script src="{{ '/assets/js/cv.js' | relative_url }}"></script>
+
+<!-- ✅ Download CV button -->
+<section class="cv-download-section">
+  <p>You can explore my full professional background below or download a one-page PDF version for offline viewing.</p>
+  <a href="{{ '/files/CV_AS.pdf' | relative_url }}" download class="btn btn-primary">
+    📄 Download CV (PDF)
+  </a>
+</section>
+
+<!-- ✅ Include Markdown content (keeps it cleanly separated) -->
+{% include custom_cv_entry.md %}
+
