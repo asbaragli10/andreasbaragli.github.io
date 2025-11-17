@@ -24,7 +24,7 @@
       <div class="desc-full" style="display:none;">
         {{ include.project.description | markdownify }}
       </div>
-      <button class="read-more-btn" onclick="toggleDescription(this)">
+      <button class="read-more-btn" onclick="toggleProjectDescription(this); return false;">
         Read more
       </button>
     </div>
@@ -39,12 +39,12 @@
             <img src="{{ figure | relative_url }}" alt="{{ include.project.title }} - Image {{ forloop.index }}">
           </div>
         {% endfor %}
-        <button class="carousel-nav prev" onclick="changeSlide(this, -1)">‹</button>
-        <button class="carousel-nav next" onclick="changeSlide(this, 1)">›</button>
+        <button class="carousel-nav prev" onclick="changeProjectSlide(this, -1); return false;">‹</button>
+        <button class="carousel-nav next" onclick="changeProjectSlide(this, 1); return false;">›</button>
       </div>
       <div class="carousel-indicators">
         {% for figure in include.project.figures %}
-          <span class="carousel-indicator {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" onclick="goToSlide(this)"></span>
+          <span class="carousel-indicator {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" onclick="goToProjectSlide(this); return false;"></span>
         {% endfor %}
       </div>
     </div>
@@ -58,86 +58,117 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+(function() {
+  'use strict';
 
-  /* ----- Read More Logic ----- */
-  const descriptions = document.querySelectorAll(".project-description");
-  descriptions.forEach(desc => {
-    const fullTextEl = desc.querySelector(".desc-full");
-    const fullText = fullTextEl.innerText || fullTextEl.textContent;
+  function initProjectItems() {
+    /* ----- Read More Logic ----- */
+    const descriptions = document.querySelectorAll(".project-description");
+    descriptions.forEach(desc => {
+      const fullTextEl = desc.querySelector(".desc-full");
+      const shortTextEl = desc.querySelector(".desc-short");
+      
+      if (!fullTextEl || !shortTextEl) return;
+      
+      const fullText = fullTextEl.innerText || fullTextEl.textContent || '';
 
-    // Find first and second periods
-    const firstDot = fullText.indexOf(".");
-    let secondDot = -1;
-    if (firstDot !== -1) secondDot = fullText.indexOf(".", firstDot + 1);
+      // Find first and second periods
+      const firstDot = fullText.indexOf(".");
+      let secondDot = -1;
+      if (firstDot !== -1) secondDot = fullText.indexOf(".", firstDot + 1);
 
-    let shortText = fullText;
-    if (secondDot !== -1) shortText = fullText.substring(0, secondDot + 1);
-    else if (firstDot !== -1) shortText = fullText.substring(0, firstDot + 1);
+      let shortText = fullText;
+      if (secondDot !== -1) {
+        shortText = fullText.substring(0, secondDot + 1);
+      } else if (firstDot !== -1) {
+        shortText = fullText.substring(0, firstDot + 1);
+      }
 
-    desc.querySelector(".desc-short").innerText = shortText;
-  });
+      shortTextEl.innerText = shortText;
+      shortTextEl.style.display = "inline";
+    });
 
-  /* ----- Carousel Init ----- */
-  const carousels = document.querySelectorAll(".project-carousel");
-  carousels.forEach(carousel => {
-    const slides = carousel.querySelectorAll(".carousel-slide");
-    const indicators = carousel.querySelectorAll(".carousel-indicator");
+    /* ----- Carousel Init ----- */
+    const carousels = document.querySelectorAll(".project-carousel");
+    carousels.forEach(carousel => {
+      const slides = carousel.querySelectorAll(".carousel-slide");
+      const indicators = carousel.querySelectorAll(".carousel-indicator");
 
-    // Ensure first slide active
-    slides.forEach((s, i) => s.classList.toggle("active", i === 0));
-    indicators.forEach((ind, i) => ind.classList.toggle("active", i === 0));
-  });
-
-});
-
-/* ----- Toggle Read More ----- */
-function toggleDescription(button) {
-  const container = button.closest(".project-description");
-  const shortText = container.querySelector(".desc-short");
-  const fullText = container.querySelector(".desc-full");
-
-  const hidden = fullText.style.display === "none";
-
-  if (hidden) {
-    fullText.style.display = "block";
-    shortText.style.display = "none";
-    button.textContent = "Read less";
-  } else {
-    fullText.style.display = "none";
-    shortText.style.display = "inline";
-    button.textContent = "Read more";
+      // Ensure first slide active
+      slides.forEach((s, i) => s.classList.toggle("active", i === 0));
+      indicators.forEach((ind, i) => ind.classList.toggle("active", i === 0));
+    });
   }
-}
 
-/* ----- Carousel Navigation ----- */
-function changeSlide(button, direction) {
-  const carousel = button.closest('.project-carousel');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const indicators = carousel.querySelectorAll('.carousel-indicator');
+  // Run on different possible load events
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectItems);
+  } else {
+    initProjectItems();
+  }
 
-  if (!slides.length) return;
+  // Also run on window load as fallback
+  window.addEventListener('load', initProjectItems);
 
-  let currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
-  let newIndex = (currentIndex + direction + slides.length) % slides.length;
+  /* ----- Toggle Read More ----- */
+  window.toggleProjectDescription = function(button) {
+    const container = button.closest(".project-description");
+    if (!container) return;
+    
+    const shortText = container.querySelector(".desc-short");
+    const fullText = container.querySelector(".desc-full");
 
-  slides[currentIndex].classList.remove('active');
-  slides[newIndex].classList.add('active');
+    if (!shortText || !fullText) return;
 
-  indicators[currentIndex].classList.remove('active');
-  indicators[newIndex].classList.add('active');
-}
+    const hidden = fullText.style.display === "none" || fullText.style.display === "";
 
-function goToSlide(indicator) {
-  const index = parseInt(indicator.getAttribute('data-index'));
-  const carousel = indicator.closest('.project-carousel');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const indicators = carousel.querySelectorAll('.carousel-indicator');
+    if (hidden) {
+      fullText.style.display = "block";
+      shortText.style.display = "none";
+      button.textContent = "Read less";
+    } else {
+      fullText.style.display = "none";
+      shortText.style.display = "inline";
+      button.textContent = "Read more";
+    }
+  };
 
-  slides.forEach(s => s.classList.remove('active'));
-  indicators.forEach(i => i.classList.remove('active'));
+  /* ----- Carousel Navigation ----- */
+  window.changeProjectSlide = function(button, direction) {
+    const carousel = button.closest('.project-carousel');
+    if (!carousel) return;
+    
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
 
-  slides[index].classList.add('active');
-  indicators[index].classList.add('active');
-}
+    if (!slides.length) return;
+
+    let currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+    if (currentIndex === -1) currentIndex = 0;
+    
+    let newIndex = (currentIndex + direction + slides.length) % slides.length;
+
+    slides[currentIndex].classList.remove('active');
+    slides[newIndex].classList.add('active');
+
+    if (indicators[currentIndex]) indicators[currentIndex].classList.remove('active');
+    if (indicators[newIndex]) indicators[newIndex].classList.add('active');
+  };
+
+  window.goToProjectSlide = function(indicator) {
+    const index = parseInt(indicator.getAttribute('data-index'));
+    const carousel = indicator.closest('.project-carousel');
+    if (!carousel) return;
+    
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+
+    slides.forEach(s => s.classList.remove('active'));
+    indicators.forEach(i => i.classList.remove('active'));
+
+    if (slides[index]) slides[index].classList.add('active');
+    if (indicators[index]) indicators[index].classList.add('active');
+  };
+
+})();
 </script>
